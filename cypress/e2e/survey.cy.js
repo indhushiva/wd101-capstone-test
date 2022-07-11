@@ -33,7 +33,8 @@ let validateBaseActionResults = () => {
 
 describe("survey form", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:8000/");
+    console.log(Cypress.env("STUDENT_SUBMISSION_URL"));
+    cy.visit(Cypress.env("STUDENT_SUBMISSION_URL"));
   });
 
   it("displays the entries table in right order", () => {
