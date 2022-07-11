@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "cypress": "^10.3.0",
+    "cypress-json-results": "^1.2.1"
+  }
+}
