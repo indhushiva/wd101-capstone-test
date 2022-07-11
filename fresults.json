@@ -1,0 +1,16 @@
+{
+  "cypress/e2e/survey.cy.js": {
+    "survey form displays the entries table in right order": "passed",
+    "survey form displays the entries in the right order": "passed",
+    "survey form can persist data on refresh": "passed",
+    "survey form can handle more than one entry": "passed"
+  },
+  "totals": {
+    "suites": 1,
+    "tests": 4,
+    "failed": 0,
+    "passed": 4,
+    "pending": 0,
+    "skipped": 0
+  }
+}
