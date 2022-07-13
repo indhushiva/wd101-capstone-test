@@ -44,7 +44,7 @@ describe("survey form", () => {
 
   it("can handle more than one entry", () => {
     addExampleEntry();
-
+    cy.reload();
     cy.get("#name").type("Admin User 2");
     cy.get("#email").type("admin2@example.com");
     cy.get("#password").type("Test@321");
@@ -63,5 +63,39 @@ describe("survey form", () => {
     ].forEach((item) => {
       cy.get("table").contains(item);
     });
+  });
+
+  it("can can validate email inputs", () => {
+    cy.get("#name").type("Admin User 4");
+    cy.get("#password").type("TestPass");
+    cy.get("#dob").click().type("1970-02-02");
+    cy.get("input[type=checkbox]").check();
+    // Should have correct email validation
+    cy.get("#email").type("admin2");
+    cy.get("button[type=submit]").click();
+    cy.get("table").find("tr").should("have.length", 1);
+    // Should save when the error is resolved
+    cy.get("#email").type("@example.com");
+    cy.get("button[type=submit]").click();
+    cy.get("table").find("tr").should("have.length", 2);
+  });
+
+  it("can can validate date of birth", () => {
+    cy.get("#name").type("Admin User 4");
+    cy.get("#password").type("TestPass");
+    cy.get("#email").type("admin@example.com");
+    cy.get("input[type=checkbox]").check();
+    // Should validate min age
+    cy.get("#dob").click().type("2007-02-02");
+    cy.get("button[type=submit]").click();
+    cy.get("table").find("tr").should("have.length", 1);
+    // Should validate max age
+    cy.get("#dob").click().type("1967-02-02");
+    cy.get("button[type=submit]").click();
+    cy.get("table").find("tr").should("have.length", 1);
+    // Should save when the error is resolved
+    cy.get("#dob").click().type("1998-02-02");
+    cy.get("button[type=submit]").click();
+    cy.get("table").find("tr").should("have.length", 2);
   });
 });
