@@ -1,103 +1,67 @@
-let baseActions = () => {
+let addExampleEntry = () => {
   cy.get("#name").type("Admin User 1");
   cy.get("#email").type("admin1@example.com");
   cy.get("#password").type("Test@123");
   cy.get("#dob").click().type("2000-01-01");
-  cy.contains("Accept Terms & Conditions")
-    .parent()
-    .find("input[type=checkbox]")
-    .check();
-
-  cy.contains("Submit").click();
+  cy.get("input[type=checkbox]").check();
+  cy.get("button[type=submit]").click();
 };
 
-let validateBaseActionResults = () => {
-  cy.get("tbody > :nth-child(2) > :nth-child(1)").should(
-    "have.text",
-    "Admin User 1"
-  );
-  cy.get("tbody > :nth-child(2) > :nth-child(2)").should(
-    "have.text",
-    "admin1@example.com"
-  );
-  cy.get("tbody > :nth-child(2) > :nth-child(3)").should(
-    "have.text",
-    "Test@123"
-  );
-  cy.get("tbody > :nth-child(2) > :nth-child(4)").should(
-    "have.text",
-    "2000-01-01"
-  );
-  cy.get("tbody > :nth-child(2) > :nth-child(5)").should("have.text", "true");
+let validateExampleEntry = () => {
+  [
+    "Admin User 1",
+    "admin1@example.com",
+    "Test@123",
+    "2000-01-01",
+    "true",
+  ].forEach((item) => {
+    cy.get("table").contains(item);
+  });
 };
 
 describe("survey form", () => {
   beforeEach(() => {
-    console.log(Cypress.env("STUDENT_SUBMISSION_URL"));
     cy.visit(Cypress.env("STUDENT_SUBMISSION_URL"));
   });
 
-  it("displays the entries table in right order", () => {
-    cy.get("tbody > :nth-child(1) > :nth-child(1)").should("have.text", "Name");
-    cy.get("tbody > :nth-child(1) > :nth-child(2)").should(
-      "have.text",
-      "Email"
-    );
-    cy.get("tbody > :nth-child(1) > :nth-child(3)").should(
-      "have.text",
-      "Password"
-    );
-    cy.get("tbody > :nth-child(1) > :nth-child(4)").should("have.text", "Dob");
-    cy.get("tbody > :nth-child(1) > :nth-child(5)").should(
-      "have.text",
-      "Accepted terms?"
-    );
+  it("displays the headings for the entries table", () => {
+    ["Email", "Password", "Dob", "Accepted terms?"].forEach((item) => {
+      cy.get("table").contains(item);
+    });
   });
 
   it("displays the entries in the right order", () => {
-    baseActions();
-    validateBaseActionResults();
+    addExampleEntry();
+    validateExampleEntry();
   });
 
   it("can persist data on refresh", () => {
-    baseActions();
-    validateBaseActionResults();
+    addExampleEntry();
+    validateExampleEntry();
     cy.reload();
-    validateBaseActionResults();
+    validateExampleEntry();
   });
 
   it("can handle more than one entry", () => {
-    baseActions();
-    cy.reload();
-    cy.get("#name").type("Admin User 1");
+    addExampleEntry();
+
+    cy.get("#name").type("Admin User 2");
     cy.get("#email").type("admin2@example.com");
     cy.get("#password").type("Test@321");
     cy.get("#dob").click().type("1990-02-02");
-    cy.contains("Accept Terms & Conditions")
-      .parent()
-      .find("input[type=checkbox]")
-      .check();
+    cy.get("input[type=checkbox]").check();
+    cy.get("button[type=submit]").click();
 
-    cy.contains("Submit").click();
+    validateExampleEntry();
 
-    validateBaseActionResults();
-
-    cy.get("tbody > :nth-child(3) > :nth-child(1)").should(
-      "have.text",
-      "Admin User 1"
-    );
-    cy.get("tbody > :nth-child(3) > :nth-child(2)").should(
-      "have.text",
-      "admin2@example.com"
-    );
-    cy.get("tbody > :nth-child(3) > :nth-child(3)").should(
-      "have.text",
-      "Test@321"
-    );
-    cy.get("tbody > :nth-child(3) > :nth-child(4)").should(
-      "have.text",
-      "1990-02-02"
-    );
-    cy.get("tbody > :nth-child(3) > :nth-child(5)").should("have.text", "true");
+    [
+      "Admin User 2",
+      "admin2@example.com",
+      "Test@321",
+      "1990-02-02",
+      "true",
+    ].forEach((item) => {
+      cy.get("table").contains(item);
+    });
   });
 });
