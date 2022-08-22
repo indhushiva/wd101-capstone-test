@@ -90,7 +90,7 @@ describe("", () => {
     cy.get("button[type=submit]").click();
     cy.get("table").find("tr").should("have.length", 1);
     // Should validate max age
-    cy.get("#dob").click().type("1967-02-02");
+    cy.get("#dob").click().type("1960-02-02");
     cy.get("button[type=submit]").click();
     cy.get("table").find("tr").should("have.length", 1);
     // Should save when the error is resolved
