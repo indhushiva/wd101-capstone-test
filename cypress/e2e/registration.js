@@ -19,30 +19,30 @@ let validateExampleEntry = () => {
   });
 };
 
-describe("survey form", () => {
+describe("", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("STUDENT_SUBMISSION_URL"));
   });
 
-  it("displays the headings for the entries table", () => {
+  it("When loaded, the webpage should show these headings at the top of the table - Email, Password, Dob, Accepted terms?", () => {
     ["Email", "Password", "Dob", "Accepted terms?"].forEach((item) => {
       cy.get("table").contains(item);
     });
   });
 
-  it("displays the entries in the right order", () => {
+  it("After the registration form is submitted, it should show an entry in the table immediately", () => {
     addExampleEntry();
     validateExampleEntry();
   });
 
-  it("can persist data on refresh", () => {
+  it("After the registration form is submitted, it should show the entry added previously, even if the page is refreshed", () => {
     addExampleEntry();
     validateExampleEntry();
     cy.reload();
     validateExampleEntry();
   });
 
-  it("can handle more than one entry", () => {
+  it("It should be possible to use the registration form multiple times to see many entries in the table", () => {
     addExampleEntry();
     cy.reload();
     cy.get("#name").type("Admin User 2");
@@ -65,7 +65,7 @@ describe("survey form", () => {
     });
   });
 
-  it("can can validate email inputs", () => {
+  it("The regisration form should not accept invalid email addresses", () => {
     cy.get("#name").type("Admin User 4");
     cy.get("#password").type("TestPass");
     cy.get("#dob").click().type("1970-02-02");
@@ -80,7 +80,7 @@ describe("survey form", () => {
     cy.get("table").find("tr").should("have.length", 2);
   });
 
-  it("can can validate date of birth", () => {
+  it("The registration form should only accept users between 18 and 55 years old", () => {
     cy.get("#name").type("Admin User 4");
     cy.get("#password").type("TestPass");
     cy.get("#email").type("admin@example.com");
