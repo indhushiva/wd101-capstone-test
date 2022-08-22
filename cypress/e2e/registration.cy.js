@@ -26,7 +26,7 @@ describe("", () => {
 
   it("When loaded, the webpage should show these headings at the top of the table - Email, Password, Dob, Accepted terms?", () => {
     ["Email", "Password", "Dob", "Accepted terms?"].forEach((item) => {
-      cy.get("table").contains(item);
+      cy.get("table").contains(item, { matchCase: false });
     });
   });
 
