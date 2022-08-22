@@ -65,7 +65,7 @@ describe("", () => {
     });
   });
 
-  it("The regisration form should not accept invalid email addresses", () => {
+  it("The registration form should not accept invalid email addresses", () => {
     cy.get("#name").type("Admin User 4");
     cy.get("#password").type("TestPass");
     cy.get("#dob").click().type("1970-02-02");
