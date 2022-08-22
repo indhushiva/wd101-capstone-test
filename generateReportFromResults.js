@@ -17,7 +17,7 @@ let generateFeedback = (passed, results) => {
     ? "You will be onboarded to WD201 soon - you'll receive an email from us when that happens."
     : "Please make sure that you go through the assignment instructions; make sure that your webpage contains a `table` element and that the `input` elements in the form have the correct `id` values. Our automated tests use these markers to interact with your application.\n\nIf you're having trouble with this assignment, please reach out to the Pupilfirst team on the Web Development community.";
 
-  const feedback = prefix + "\n\n" + testResults + "\n\n" + suffix;
+  const feedback = prefix + "\n\n```\n" + testResults + "\n```\n\n" + suffix;
 
   return feedback;
 };
