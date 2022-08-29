@@ -24,7 +24,7 @@ describe("", () => {
     cy.visit(Cypress.env("STUDENT_SUBMISSION_URL"));
   });
 
-  it("When loaded, the webpage should show these headings at the top of the table - Email, Password, Dob, Accepted terms?", () => {
+  it("When loaded, the webpage should show these headings at the top of the table - Name, Email, Password, Dob, Accepted terms?", () => {
     ["Name", "Email", "Password", "Dob", "Accepted terms?"].forEach((item) => {
       cy.get("table").contains(item, { matchCase: false });
     });
