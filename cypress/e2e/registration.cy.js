@@ -4,7 +4,7 @@ let addExampleEntry = () => {
   cy.get("#password").type("Test@123");
   cy.get("#dob").click().type("2000-01-01");
   cy.get("input[type=checkbox]").check();
-  cy.get("button[type=submit]").click();
+  cy.get("[type='submit']").click();
 };
 
 let validateExampleEntry = () => {
@@ -50,7 +50,7 @@ describe("", () => {
     cy.get("#password").type("Test@321");
     cy.get("#dob").click().type("1990-02-02");
     cy.get("input[type=checkbox]").check();
-    cy.get("button[type=submit]").click();
+    cy.get("[type='submit']").click();
 
     validateExampleEntry();
 
@@ -72,11 +72,11 @@ describe("", () => {
     cy.get("input[type=checkbox]").check();
     // Should have correct email validation
     cy.get("#email").type("admin2");
-    cy.get("button[type=submit]").click();
+    cy.get("[type='submit']").click();
     cy.get("table").find("tr").contains("admin2").should("not.exist");
     // Should save when the error is resolved
     cy.get("#email").type("@example.com");
-    cy.get("button[type=submit]").click();
+    cy.get("[type='submit']").click();
     cy.get("table").find("tr").contains("admin2@example.com").should("exist");
   });
 
@@ -87,15 +87,15 @@ describe("", () => {
     cy.get("input[type=checkbox]").check();
     // Should validate min age
     cy.get("#dob").click().type("2007-02-02");
-    cy.get("button[type=submit]").click();
+    cy.get("[type='submit']").click();
     cy.get("table").find("tr").contains("Admin User 4").should("not.exist");
     // Should validate max age
     cy.get("#dob").click().type("1960-02-02");
-    cy.get("button[type=submit]").click();
+    cy.get("[type='submit']").click();
     cy.get("table").find("tr").contains("Admin User 4").should("not.exist");
     // Should save when the error is resolved
     cy.get("#dob").click().type("1998-02-02");
-    cy.get("button[type=submit]").click();
+    cy.get("[type='submit']").click();
     cy.get("table").find("tr").contains("Admin User 4").should("exist");
   });
 });
