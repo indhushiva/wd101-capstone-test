@@ -15,7 +15,7 @@ let validateExampleEntry = () => {
     "2000-01-01",
     "true",
   ].forEach((item) => {
-    cy.get("table").contains(item);
+    cy.get("table").contains(item).should("exist");
   });
 };
 
@@ -26,7 +26,7 @@ describe("", () => {
 
   it("When loaded, the webpage should show these headings at the top of the table - Name, Email, Password, Dob, Accepted terms?", () => {
     ["Name", "Email", "Password", "Dob", "Accepted terms?"].forEach((item) => {
-      cy.get("table").contains(item, { matchCase: false });
+      cy.get("table").contains(item, { matchCase: false }).should("exist");
     });
   });
 
@@ -61,7 +61,7 @@ describe("", () => {
       "1990-02-02",
       "true",
     ].forEach((item) => {
-      cy.get("table").contains(item);
+      cy.get("table").contains(item).should("exist");
     });
   });
 
@@ -73,11 +73,11 @@ describe("", () => {
     // Should have correct email validation
     cy.get("#email").type("admin2");
     cy.get("button[type=submit]").click();
-    cy.get("table").find("tr").should("have.length", 1);
+    cy.get("table").find("tr").contains("admin2").should("not.exist");
     // Should save when the error is resolved
     cy.get("#email").type("@example.com");
     cy.get("button[type=submit]").click();
-    cy.get("table").find("tr").should("have.length", 2);
+    cy.get("table").find("tr").contains("admin2@example.com").should("exist");
   });
 
   it("The registration form should only accept users between 18 and 55 years old", () => {
@@ -88,14 +88,14 @@ describe("", () => {
     // Should validate min age
     cy.get("#dob").click().type("2007-02-02");
     cy.get("button[type=submit]").click();
-    cy.get("table").find("tr").should("have.length", 1);
+    cy.get("table").find("tr").contains("Admin User 4").should("not.exist");
     // Should validate max age
     cy.get("#dob").click().type("1960-02-02");
     cy.get("button[type=submit]").click();
-    cy.get("table").find("tr").should("have.length", 1);
+    cy.get("table").find("tr").contains("Admin User 4").should("not.exist");
     // Should save when the error is resolved
     cy.get("#dob").click().type("1998-02-02");
     cy.get("button[type=submit]").click();
-    cy.get("table").find("tr").should("have.length", 2);
+    cy.get("table").find("tr").contains("Admin User 4").should("exist");
   });
 });
