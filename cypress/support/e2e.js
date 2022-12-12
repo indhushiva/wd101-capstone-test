@@ -18,3 +18,8 @@
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// Ingore uncaught exceptions.
+Cypress.on('uncaught:exception', (err, runnable) => {
+  return false;
+});
