@@ -14,7 +14,7 @@ let generateFeedback = (passed, results) => {
     : "Uh oh! It looks like you've missed some parts of the assignment. Here are the results of the tests that we ran. A tick (✓) indicates a successful test, and a cross (✗) indicates a failed test.";
 
   const suffix = passed
-    ? "You will receive an email from us when you are onboarded to WD201."
+    ? "You will receive an email from us when you are onboarded to WD201. Please note that a plagiarism check will be run on your submission soon. If your submission is found to be plagiarized, this result may be changed at a later date."
     : "Please make sure that you go through the assignment instructions; make sure that your webpage contains a `table` element and that the `input` elements in the form have the correct `id` values. Our automated tests use these markers to interact with your application.\n\nIf you're having trouble with this assignment, please reach out to the Pupilfirst team on the Web Development community.";
 
   const feedback = prefix + "\n\n" + testResults + "\n\n" + suffix;
